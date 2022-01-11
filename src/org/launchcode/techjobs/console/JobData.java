@@ -48,14 +48,26 @@ public class JobData {
 
     private static Comparator<String> Alphabetical_Order = new Comparator<String>() {
         public int compare(String str1, String str2) {
+            int result;
             if (!Character.isLetter(str1.charAt(0))) {
                 // complete comparison using str.charAt(1) instead of normal comparison
+                result = String.CASE_INSENSITIVE_ORDER.compare(str1.substring(1), str2);
+                if (result == 0) {
+                    result = str1.compareTo(str2);
+                }
+            } else if (!Character.isLetter(str2.charAt(0))) {
+                // complete comparison using str.charAt(1) instead of normal comparison
+                result = String.CASE_INSENSITIVE_ORDER.compare(str1, str2.substring(1));
+                if (result == 0) {
+                    result = str1.compareTo(str2);
+                }
             } else {
                 // complete with normal compare method below
-            }
-            int result = String.CASE_INSENSITIVE_ORDER.compare(str1, str2);
-            if (result == 0) {
-                result = str1.compareTo(str2);
+                result = String.CASE_INSENSITIVE_ORDER.compare(str1, str2);
+                if (result == 0) {
+                    result = str1.compareTo(str2);
+                }
+
             }
             return result;
         }
@@ -66,7 +78,9 @@ public class JobData {
         // load data, if not already loaded
         loadData();
 
-        return allJobs;
+        ArrayList<HashMap<String, String>> allJobsConsumable = new ArrayList(allJobs);
+
+        return allJobsConsumable;
     }
 
     /**
