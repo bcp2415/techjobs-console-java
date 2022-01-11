@@ -35,17 +35,14 @@ public class JobData {
         loadData();
 
         ArrayList<String> values = new ArrayList<>();
+        ArrayList<String> valuesLowered = new ArrayList<>();
 
         for (HashMap<String, String> row : allJobs) {
             String aValue = row.get(field);
 
-            ArrayList<String> valuesLowered = new ArrayList<>();
-            valuesLowered = values;
-            for (String word : valuesLowered) {
-                word = word.toLowerCase();
-            }
             if (!valuesLowered.contains(aValue.toLowerCase())) {
                 values.add(aValue);
+                valuesLowered.add(aValue.toLowerCase());
             }
         }
 
@@ -68,7 +65,7 @@ public class JobData {
      * with "Enterprise Holdings, Inc".
      *
      * @param column   Column that should be searched.
-     * @param value Value of teh field to search for
+     * @param value Value of the field to search for
      * @return List of all jobs matching the criteria
      */
     public static ArrayList<HashMap<String, String>> findByColumnAndValue(String column, String value) {
