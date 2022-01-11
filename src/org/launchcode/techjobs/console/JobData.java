@@ -69,21 +69,34 @@ public class JobData {
      * @return List of all jobs matching the criteria
      */
     public static ArrayList<HashMap<String, String>> findByColumnAndValue(String column, String value) {
+        System.out.println("findByColumnAndValue(String column, String value) called.");
 
         // load data, if not already loaded
         loadData();
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+        ArrayList<HashMap<String, String>> jobsLowered = new ArrayList<>();
 
         for (HashMap<String, String> row : allJobs) {
-
             String aValue = row.get(column);
 
             if (aValue.contains(value)) {
                 jobs.add(row);
+                jobsLowered.add(row);
             }
         }
+        /*
+        ArrayList<String> valuesLowered = new ArrayList<>();
 
+        for (HashMap<String, String> row : allJobs) {
+            String aValue = row.get(field);
+
+            if (!valuesLowered.contains(aValue.toLowerCase())) {
+                values.add(aValue);
+                valuesLowered.add(aValue.toLowerCase());
+            }
+        }
+        */
         return jobs;
     }
 
