@@ -7,10 +7,7 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by LaunchCode
@@ -45,9 +42,24 @@ public class JobData {
                 valuesLowered.add(aValue.toLowerCase());
             }
         }
-
+        Collections.sort(values, Alphabetical_Order);
         return values;
     }
+
+    private static Comparator<String> Alphabetical_Order = new Comparator<String>() {
+        public int compare(String str1, String str2) {
+            if (!Character.isLetter(str1.charAt(0))) {
+                // complete comparison using str.charAt(1) instead of normal comparison
+            } else {
+                // complete with normal compare method below
+            }
+            int result = String.CASE_INSENSITIVE_ORDER.compare(str1, str2);
+            if (result == 0) {
+                result = str1.compareTo(str2);
+            }
+            return result;
+        }
+    };
 
     public static ArrayList<HashMap<String, String>> findAll() {
 
